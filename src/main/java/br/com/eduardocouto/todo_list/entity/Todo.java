@@ -17,6 +17,11 @@ public class Todo {
     private String descricao;
     private boolean concluido;
     private int prioridade;
+    
+    public Todo() {
+        
+    }
+
 
     public Todo( String nome, String descricao, boolean concluido, int prioridade) {
        
