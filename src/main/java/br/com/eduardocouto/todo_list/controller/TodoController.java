@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.eduardocouto.todo_list.dto.TodoDto;
 import br.com.eduardocouto.todo_list.entity.Todo;
 import br.com.eduardocouto.todo_list.service.TodoService;
 
@@ -26,24 +27,26 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+    @GetMapping
+    List <TodoDto> show(){
+        return todoService.show();
+    }
+
     @PostMapping
-    List <Todo> create(@RequestBody Todo todo){
+    List <TodoDto> create(@RequestBody Todo todo){
         
         return todoService.create(todo);
     }
 
-    @GetMapping
-    List <Todo> show(){
-        return todoService.show();
-    }
+  
 
-    @PutMapping
-    List <Todo> update(@RequestBody Todo todo){
-        return todoService.update(todo);
-    }
+    // @PutMapping
+    // List <Todo> update(@RequestBody Todo todo){
+    //     return todoService.update(todo);
+    // }
     
-    @DeleteMapping("{id}")
-    List <Todo> delete(@PathVariable("id") Long id){
-        return todoService.delete(id);
-    }
+    // @DeleteMapping("{id}")
+    // List <Todo> delete(@PathVariable("id") Long id){
+    //     return todoService.delete(id);
+    // }
 }

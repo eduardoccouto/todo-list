@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import br.com.eduardocouto.todo_list.dto.TodoDto;
 import br.com.eduardocouto.todo_list.entity.Todo;
 import br.com.eduardocouto.todo_list.repository.TodoRepository;
 
@@ -18,28 +19,32 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> create(Todo todo) {
+    public List<TodoDto> create(Todo todo) {
         todoRepository.save(todo);
         return show();
     }
 
-    public List<Todo> show() {
+    public List<TodoDto> show() {
 
-        Sort sort = Sort.by("prioridade").descending().and(
-                Sort.by("nome").ascending());
+        // Sort sort = Sort.by("prioridade").descending().and(
+        //         Sort.by("nome").ascending());
 
-        return todoRepository.findAll(sort);
+        List<Todo> result = todoRepository.findAll();
+
+        return result.stream().map(x-> new TodoDto(x)).toList();
+
+         
     }
 
-    public List<Todo> update(Todo todo) {
-        todoRepository.save(todo);
-        return show();
-    }
+    // public List<Todo> update(Todo todo) {
+    //     todoRepository.save(todo);
+    //     return show();
+    // }
 
-    public List<Todo> delete(Long id) {
-        todoRepository.deleteById(id);
-        ;
-        return show();
-    }
+    // public List<Todo> delete(Long id) {
+    //     todoRepository.deleteById(id);
+    //     ;
+    //     return show();
+    // }
 
 }
