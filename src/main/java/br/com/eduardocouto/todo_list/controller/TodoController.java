@@ -19,34 +19,30 @@ import br.com.eduardocouto.todo_list.service.TodoService;
 @RequestMapping("/todos")
 public class TodoController {
 
-
     private TodoService todoService;
-
 
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
 
     @GetMapping
-    List <TodoDto> show(){
+    List<TodoDto> show() {
         return todoService.show();
     }
 
     @PostMapping
-    List <TodoDto> create(@RequestBody Todo todo){
-        
+    List<TodoDto> create(@RequestBody Todo todo) {
+
         return todoService.create(todo);
     }
 
-  
+    @PutMapping
+    List<TodoDto> update(@RequestBody Todo todo) {
+        return todoService.update(todo);
+    }
 
-    // @PutMapping
-    // List <Todo> update(@RequestBody Todo todo){
-    //     return todoService.update(todo);
-    // }
-    
-    // @DeleteMapping("{id}")
-    // List <Todo> delete(@PathVariable("id") Long id){
-    //     return todoService.delete(id);
-    // }
+    @DeleteMapping("{id}")
+    List<TodoDto> delete(@PathVariable("id") Long id) {
+        return todoService.delete(id);
+    }
 }

@@ -26,25 +26,24 @@ public class TodoService {
 
     public List<TodoDto> show() {
 
-        // Sort sort = Sort.by("prioridade").descending().and(
-        //         Sort.by("nome").ascending());
+        Sort sort = Sort.by("prioridade").descending().and(
+                Sort.by("nome").ascending());
 
         List<Todo> result = todoRepository.findAll();
 
-        return result.stream().map(x-> new TodoDto(x)).toList();
+        return result.stream().map(x -> new TodoDto(x)).toList();
 
-         
     }
 
-    // public List<Todo> update(Todo todo) {
-    //     todoRepository.save(todo);
-    //     return show();
-    // }
+    public List<TodoDto> update(Todo todo) {
+        todoRepository.save(todo);
+        return show();
+    }
 
-    // public List<Todo> delete(Long id) {
-    //     todoRepository.deleteById(id);
-    //     ;
-    //     return show();
-    // }
+    public List<TodoDto> delete(Long id) {
+        todoRepository.deleteById(id);
+        ;
+        return show();
+    }
 
 }
