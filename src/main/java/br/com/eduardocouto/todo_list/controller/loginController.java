@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.eduardocouto.todo_list.entity.user.LoginResponseDTO;
 import br.com.eduardocouto.todo_list.entity.user.Users;
 import br.com.eduardocouto.todo_list.entity.user.loginDTO;
 import br.com.eduardocouto.todo_list.entity.user.registerDTO;
+import br.com.eduardocouto.todo_list.infra.security.TokenService;
 import br.com.eduardocouto.todo_list.repository.UserRepository;
 
 
@@ -26,13 +28,18 @@ AuthenticationManager authenticationManager;
 @Autowired
 private UserRepository userRepository;
 
+@Autowired
+private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody loginDTO data ){
 
         var userNamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(userNamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Users)auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
 
